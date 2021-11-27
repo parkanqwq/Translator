@@ -4,17 +4,18 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.kalabukhov.app.translator.app
 import com.kalabukhov.app.translator.databinding.ActivityMainBinding
 import com.kalabukhov.app.translator.domain.entity.DataModel
 import com.kalabukhov.app.translator.hideKeyboard
+import com.kalabukhov.app.translator.model.AppState
 import com.kalabukhov.app.translator.showSnackBar
-import moxy.MvpAppCompatActivity
-import moxy.ktx.moxyPresenter
 
-class MainActivity : MvpAppCompatActivity(), MainContract.View {
+class MainActivity : AppCompatActivity() {
 
-    private val presenter by moxyPresenter { MainPresenter() }
+    private lateinit var viewModel: MainViewModel
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,7 @@ class MainActivity : MvpAppCompatActivity(), MainContract.View {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         initView()
     }
 
@@ -30,31 +32,31 @@ class MainActivity : MvpAppCompatActivity(), MainContract.View {
         val inputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
 
+        viewModel.getLiveData().observe(this@MainActivity, { renderData(it) })
         findButtonView.setOnClickListener {
-            presenter.onLoadListWords(app, findWordEditView.text.toString())
+            viewModel.getWords(app, findWordEditView.text.toString())
             main.hideKeyboard(inputMethodManager)
         }
     }
 
-    override fun setState(state: MainContract.ViewState) = with(binding) {
-        when (state) {
-            MainContract.ViewState.SUCCESSFUL -> {
-                progressBar.visibility = View.GONE
-                wordsRecyclerView.visibility = View.VISIBLE
-                main.showSnackBar("SUCCESSFUL")
-            }
-            MainContract.ViewState.LOADING -> {
-                progressBar.visibility = View.VISIBLE
-                wordsRecyclerView.visibility = View.GONE
-            }
-            MainContract.ViewState.ERROR -> {
-                main.showSnackBar("ERROR")
+    private fun renderData(appState: AppState) {
+        with(binding){
+            when (appState) {
+                is AppState.Success -> {
+                    progressBar.visibility = View.GONE
+                    wordsRecyclerView.visibility = View.VISIBLE
+                    main.showSnackBar("SUCCESSFUL")
+                    adapterWords.setDataModel(appState.data)
+                }
+                is AppState.Loading -> {
+                    progressBar.visibility = View.VISIBLE
+                    wordsRecyclerView.visibility = View.GONE
+                }
+                is AppState.Error -> {
+                    main.showSnackBar("ERROR")
+                }
             }
         }
-    }
-
-    override fun showWordsWed(dataModel: List<DataModel>) {
-        adapterWords.setDataModel(dataModel)
     }
 
     private val onObjectListener = object : OnItemViewClickListener {
