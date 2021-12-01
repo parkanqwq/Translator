@@ -3,29 +3,22 @@ package com.kalabukhov.app.translator.ui.main
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kalabukhov.app.translator.App
 import com.kalabukhov.app.translator.model.AppState
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import com.kalabukhov.app.translator.ui.repository.RepositoryWords
 
 class MainViewModel : ViewModel(), LifecycleObserver {
 
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
-
     fun getLiveData() = liveDataToObserve
 
-    fun getWords(app: App, word: String) = getDataFromWordsSource(app, word)
+    fun getWords(apiWorlds: RepositoryWords, word: String) =
+        getDataFromWordsSource(apiWorlds, word)
 
-    private fun getDataFromWordsSource(app: App, word: String) {
+    private fun getDataFromWordsSource(apiWorlds: RepositoryWords, word: String) {
         liveDataToObserve.value = AppState.Loading
 
-            val compositeDisposable = CompositeDisposable()
-            compositeDisposable.add(app.apiWorlds.search(word)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { repos ->
-                    liveDataToObserve.value = AppState.Success(repos)
-                })
+        apiWorlds.getWords(word).subscribe {
+            liveDataToObserve.value = AppState.Success(it)
+        }
     }
 }

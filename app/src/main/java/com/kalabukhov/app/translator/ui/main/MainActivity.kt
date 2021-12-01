@@ -12,8 +12,13 @@ import com.kalabukhov.app.translator.domain.entity.DataModel
 import com.kalabukhov.app.translator.hideKeyboard
 import com.kalabukhov.app.translator.model.AppState
 import com.kalabukhov.app.translator.showSnackBar
+import com.kalabukhov.app.translator.ui.repository.RepositoryWords
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var apiWorlds: RepositoryWords
 
     private lateinit var viewModel: MainViewModel
 
@@ -22,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        app.appComponent.inject(this)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         initView()
     }
@@ -34,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getLiveData().observe(this@MainActivity, { renderData(it) })
         findButtonView.setOnClickListener {
-            viewModel.getWords(app, findWordEditView.text.toString())
+            viewModel.getWords(apiWorlds, findWordEditView.text.toString())
             main.hideKeyboard(inputMethodManager)
         }
     }
