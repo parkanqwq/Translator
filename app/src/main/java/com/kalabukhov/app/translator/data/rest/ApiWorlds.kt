@@ -2,6 +2,7 @@ package com.kalabukhov.app.translator.data.rest
 
 import com.kalabukhov.app.translator.domain.entity.DataModel
 import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
