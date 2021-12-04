@@ -5,30 +5,28 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.kalabukhov.app.translator.app
 import com.kalabukhov.app.translator.databinding.ActivityMainBinding
 import com.kalabukhov.app.translator.domain.entity.DataModel
 import com.kalabukhov.app.translator.hideKeyboard
 import com.kalabukhov.app.translator.model.AppState
 import com.kalabukhov.app.translator.showSnackBar
 import com.kalabukhov.app.translator.ui.repository.RepositoryWords
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var apiWorlds: RepositoryWords
-
-    private lateinit var viewModel: MainViewModel
+    private val apiWords: RepositoryWords by inject()
+    private val viewModel: MainViewModel by viewModel()
+    //private lateinit var viewModel: MainViewModel
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        app.appComponent.inject(this)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+       // app.appComponent.inject(this)
+       // viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         initView()
     }
 
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getLiveData().observe(this@MainActivity, { renderData(it) })
         findButtonView.setOnClickListener {
-            viewModel.getWords(apiWorlds, findWordEditView.text.toString())
+            viewModel.getWords(apiWords, findWordEditView.text.toString())
             main.hideKeyboard(inputMethodManager)
         }
     }
