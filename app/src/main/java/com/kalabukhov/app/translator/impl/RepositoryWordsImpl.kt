@@ -11,7 +11,7 @@ class RepositoryWordsImpl(private val apiWorlds: ApiWorlds) : RepositoryWords {
 
     override fun getWords(word: String): Observable<List<DataModel>> {
         return apiWorlds.search(word)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
     }
 }
