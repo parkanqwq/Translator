@@ -2,16 +2,26 @@ package com.kalabukhov.app.translator
 
 import android.app.Application
 import android.content.Context
-import com.kalabukhov.app.translator.di.AppComponent
-import com.kalabukhov.app.translator.di.DaggerAppComponent
+import com.kalabukhov.app.translator.di.retrofitModule
+import com.kalabukhov.app.translator.di.viewModelModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext
 
 class App : Application() {
 
-    val appComponent : AppComponent by lazy {
-        DaggerAppComponent
-            .builder()
-            .build()
+    override fun onCreate() {
+        super.onCreate()
+        GlobalContext.startKoin {
+            androidContext(this@App)
+            modules(retrofitModule, viewModelModule)
+        }
     }
+
+//    val appComponent : AppComponent by lazy {
+//        DaggerAppComponent
+//            .builder()
+//            .build()
+//    }
 }
 
 val Context.app : App
