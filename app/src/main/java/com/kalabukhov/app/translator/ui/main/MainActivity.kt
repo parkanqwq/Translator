@@ -1,6 +1,7 @@
 package com.kalabukhov.app.translator.ui.main
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -11,6 +12,7 @@ import com.kalabukhov.app.translator.hideKeyboard
 import com.kalabukhov.app.translator.model.AppState
 import com.kalabukhov.app.translator.showSnackBar
 import com.kalabukhov.app.translator.ui.repository.RepositoryWords
+import com.kalabukhov.app.translator.ui.stopwatch.StopWatch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,6 +30,11 @@ class MainActivity : AppCompatActivity() {
        // app.appComponent.inject(this)
        // viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         initView()
+
+        binding.stopwatchButtonView.setOnClickListener {
+            val intent = Intent(this, StopWatch::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initView() = with(binding){

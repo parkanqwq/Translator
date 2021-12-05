@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Translator</string>
     <string name="find">Find</string>
+    <string name="stopwatch">Секундамер</string>
+    <string name="_0">0</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
 </resources>
