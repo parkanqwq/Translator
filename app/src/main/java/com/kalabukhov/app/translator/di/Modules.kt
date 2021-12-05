@@ -1,9 +1,12 @@
 package com.kalabukhov.app.translator.di
 
 import com.kalabukhov.app.translator.data.rest.ApiWorlds
+import com.kalabukhov.app.translator.impl.RepositoryStopWatchImpl
 import com.kalabukhov.app.translator.impl.RepositoryWordsImpl
 import com.kalabukhov.app.translator.ui.main.MainViewModel
+import com.kalabukhov.app.translator.ui.repository.RepositoryStopWatch
 import com.kalabukhov.app.translator.ui.repository.RepositoryWords
+import com.kalabukhov.app.translator.ui.stopwatch.StopWatchViewModel
 import io.reactivex.schedulers.Schedulers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -22,8 +25,13 @@ val retrofitModule = module {
         .build() }
 }
 
+val stopWatchModule = module {
+    single<RepositoryStopWatch> { RepositoryStopWatchImpl() }
+}
+
 val viewModelModule = module {
     viewModel { MainViewModel() }
+    viewModel { StopWatchViewModel() }
 }
 //@Module
 //class ModuleRetrofit {

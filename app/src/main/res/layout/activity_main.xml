@@ -41,6 +41,13 @@
         android:inputType="textPersonName" />
 
     <Button
+        android:id="@+id/stopwatch_button_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small"
+        android:text="@string/stopwatch" />
+
+    <Button
         android:id="@+id/find_button_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
