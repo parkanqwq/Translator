@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/open"
+    android:layout_margin="@dimen/margin_small"
+    tools:context=".ui.word.OpenWord">
+
+    <TextView
+        android:id="@+id/tittle_text_view"
+        style="@style/HeaderTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small"
+        tools:text="TextView" />
+
+    <TextView
+        android:id="@+id/translation_text_view"
+        style="@style/BaseTextStyle"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="TextView" />
+
+    <ImageView
+        android:id="@+id/image_word_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small"
+        tools:srcCompat="@tools:sample/avatars" />
+</LinearLayout>

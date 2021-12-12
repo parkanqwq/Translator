@@ -5,6 +5,7 @@ import android.content.Context
 import com.kalabukhov.app.translator.di.retrofitModule
 import com.kalabukhov.app.translator.di.stopWatchModule
 import com.kalabukhov.app.translator.di.viewModelModule
+import com.kalabukhov.app.translator.di.wordsDbModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext
 
@@ -14,7 +15,7 @@ class App : Application() {
         super.onCreate()
         GlobalContext.startKoin {
             androidContext(this@App)
-            modules(retrofitModule, viewModelModule, stopWatchModule)
+            modules(retrofitModule, viewModelModule, stopWatchModule, wordsDbModule)
         }
     }
 

@@ -7,8 +7,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/main"
-    android:layout_margin="@dimen/margin_small"
     tools:context=".ui.main.MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/main_tool_bar"
+            style="@style/Theme.Translator"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -27,8 +37,8 @@
             android:id="@+id/words_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_small"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
 
     </FrameLayout>
 

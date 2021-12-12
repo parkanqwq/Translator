@@ -1,12 +1,20 @@
 package com.kalabukhov.app.translator.di
 
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.kalabukhov.app.translator.data.WordDao
+import com.kalabukhov.app.translator.data.WordsDb
 import com.kalabukhov.app.translator.data.rest.ApiWorlds
+import com.kalabukhov.app.translator.domain.repo.WordRepo
 import com.kalabukhov.app.translator.impl.RepositoryStopWatchImpl
+import com.kalabukhov.app.translator.impl.RepositoryWordsDbImpl
 import com.kalabukhov.app.translator.impl.RepositoryWordsImpl
+import com.kalabukhov.app.translator.ui.history.HistoryWordsViewModel
 import com.kalabukhov.app.translator.ui.main.MainViewModel
 import com.kalabukhov.app.translator.ui.repository.RepositoryStopWatch
 import com.kalabukhov.app.translator.ui.repository.RepositoryWords
 import com.kalabukhov.app.translator.ui.stopwatch.StopWatchViewModel
+import com.kalabukhov.app.translator.ui.word.OpenWordViewModel
 import io.reactivex.schedulers.Schedulers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -29,9 +37,18 @@ val stopWatchModule = module {
     single<RepositoryStopWatch> { RepositoryStopWatchImpl() }
 }
 
+val wordsDbModule = module {
+    val dbPatch = "words.db"
+    single { Room.databaseBuilder(get(), WordsDb::class.java, dbPatch).build() }
+    single { get<WordsDb>().wordDao() }
+    single<WordRepo> { RepositoryWordsDbImpl(get()) }
+}
+
 val viewModelModule = module {
     viewModel { MainViewModel() }
     viewModel { StopWatchViewModel() }
+    viewModel { OpenWordViewModel() }
+    viewModel { HistoryWordsViewModel() }
 }
 //@Module
 //class ModuleRetrofit {
