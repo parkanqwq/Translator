@@ -10,10 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Translator">
-        <activity android:name=".ui.history.HistoryWords"></activity>
+        <activity android:name=".ui.history.HistoryWords"/>
         <activity android:name=".ui.word.OpenWord" />
         <activity android:name=".ui.stopwatch.StopWatch" />
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.main.MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

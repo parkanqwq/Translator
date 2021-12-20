@@ -9,7 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.kalabukhov.app.stopwatchmodule.ui.StopWatch
 import com.kalabukhov.app.translator.R
 import com.kalabukhov.app.translator.databinding.ActivityMainBinding
 import com.kalabukhov.app.translator.domain.entity.DataModel
@@ -18,7 +18,6 @@ import com.kalabukhov.app.translator.model.AppState
 import com.kalabukhov.app.translator.showSnackBar
 import com.kalabukhov.app.translator.ui.history.HistoryWords
 import com.kalabukhov.app.translator.ui.repository.RepositoryWords
-import com.kalabukhov.app.translator.ui.stopwatch.StopWatch
 import com.kalabukhov.app.translator.ui.word.OpenWord
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel

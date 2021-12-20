@@ -53,6 +53,7 @@ dependencies {
     // moxy
     implementation "com.github.moxy-community:moxy:2.2.2"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation project(path: ':StopWatchModule')
     kapt "com.github.moxy-community:moxy-compiler:2.2.2"
     implementation "com.github.moxy-community:moxy-ktx:2.2.2"
     implementation "com.github.moxy-community:moxy-androidx:2.2.2"
